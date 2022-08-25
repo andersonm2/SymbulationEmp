@@ -152,15 +152,16 @@ public:
     }
     
     if(state.host->IsHost()){
-      IncrementSquareMap(output, 1);
+      IncrementSquareMap(output, true);
     }
     else{
-      IncrementSquareMap(output, 0);
+      IncrementSquareMap(output, false);
     }
   }
 
    /**
-   * Input: A pointer to an organism's square frequency map and the value of the current output
+   * Input: The value of the current output and a boolean indicating whether the organism
+   is a host or symbiont
    *
    * Output: None
    *
@@ -321,11 +322,16 @@ public:
    *
    * Purpose: Empties the host and symbiont calculation tables 
    */
-  void ClearSquareFrequencyData(){
+  void ClearSquareFrequencyData(bool IsHost){
       emp::Ptr<Task> curTask = tasks[0];
       emp::Ptr<SquareTask> squareTask = curTask.DynamicCast<SquareTask>();
-      squareTask->hostCalculationTable.clear();
-      squareTask->symCalculationTable.clear();
+      if (IsHost){
+          squareTask->hostCalculationTable.clear();
+      }
+      else{
+          squareTask->symCalculationTable.clear();
+      }
+      
   }
 };
 
