@@ -43,7 +43,6 @@
  *
  */
 emp::BitSet<64> ReturnTasksDone(CPU org_cpu) {
-  bool if_task_true = false;
   org_cpu.Reset();
   org_cpu.state.self_completed = {1, 1, 1, 1, 1, 1, 1, 1, 1};
 
