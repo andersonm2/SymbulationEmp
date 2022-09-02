@@ -171,11 +171,14 @@ INST(Steal, {
   }
 });
 
-INST(Reuptake, {
+INST(ReuptakePublic, {
   uint32_t next;
   AddOrganismPoints(state, *a);
   if (state.internalEnvironment->size() > 0) { // Only gets resources if the organism has values in their internal environment
     next = state.internalEnvironment->back(); // Takes a resource from back of internal environment vector
+    if (state.host->IsHost()){
+      std::cout << "Host : " << next << std::endl;
+    }
     state.internalEnvironment->pop_back(); // Clears out the selected resource from Internal Environment
     *a = next;
     state.input_buf.push(next);
@@ -183,6 +186,28 @@ INST(Reuptake, {
     // Otherwise, reset the register to 0
     *a = 0;
   }
+});
+INST(ReuptakePrivate, {
+  uint32_t next;
+  AddOrganismPoints(state, *a);
+  if (state.internalEnvironmentPrivate->size() > 0) { // Only gets resources if the organism has values in their internal environment
+    next = state.internalEnvironmentPrivate->back(); // Takes a resource from back of internal environment vector
+    if (state.host->IsHost()){
+      std::cout << "Host : " << next << std::endl;
+    }
+    state.internalEnvironmentPrivate->pop_back(); // Clears out the selected resource from Internal Environment
+    *a = next;
+    state.input_buf.push(next);
+  } else {
+    // Otherwise, reset the register to 0
+    *a = 0;
+  }
+});
+INST(InternalPrivate, {
+  state.internalPrivate = true;
+});
+INST(InternalShared, {
+  state.internalPrivate = false;
 });
 
 } // namespace inst

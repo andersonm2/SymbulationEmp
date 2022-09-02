@@ -146,11 +146,11 @@ public:
   void MarkPerformed(CPUState &state, uint32_t output, size_t task_id,
                      bool shared) override {
     OutputTask::MarkPerformed(state, output, task_id, shared);
-    if (output > 16){
-        state.internalEnvironment->insert(state.internalEnvironment->begin(),
-                              sqrt(output));
+    if(state.internalPrivate){
+      state.internalEnvironmentPrivate->insert(state.internalEnvironment->begin(), sqrt(output));
+    }else{
+        state.internalEnvironment->insert(state.internalEnvironment->begin(), sqrt(output));
     }
-    
     if(state.host->IsHost()){
       IncrementSquareMap(output, true);
     }

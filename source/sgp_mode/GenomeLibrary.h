@@ -21,7 +21,8 @@ using Library = sgpl::OpLibrary<
     // Stack manipulation
     inst::Push, inst::Pop, inst::SwapStack, inst::Swap,
     // no h-search
-    inst::Donate, inst::JumpIfNEq, inst::JumpIfLess, inst::Reuptake,
+    inst::Donate, inst::JumpIfNEq, inst::JumpIfLess, inst::ReuptakePrivate, inst::ReuptakePublic, 
+    inst::InternalPrivate,
     // if-label doesn't make sense for SGP, same with *-head
     // and set-flow but this is required
     sgpl::global::Anchor, inst::Steal>;
